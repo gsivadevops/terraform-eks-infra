@@ -58,7 +58,7 @@ pipeline {
         }
         // Parallel stage for multitasking job
         stage('Bastion EKS ACM ALB') {
-            Parallel {
+            parallel {
                 stage('Trigger Bastion') {
                     steps {
                         script {
@@ -87,7 +87,16 @@ pipeline {
                     }
                 }
             }
-        }        
+        }         
+        stage('Trigger ALB') {
+            steps {
+                script {
+                    build job: '70-ingress-alb', 
+                    propagate: false,  
+                    wait: false 
+                }
+            }
+        }       
     }
 
     post { 
