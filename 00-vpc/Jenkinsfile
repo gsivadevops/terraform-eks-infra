@@ -13,7 +13,7 @@ pipeline {
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
-    // Build
+    // Build Infra for Deployment
     stages {
         stage('init') {
             steps {
@@ -57,15 +57,15 @@ pipeline {
             }
         }
         // Down stream job
-        // stage('Trigger SG') {
-        //     steps {
-        //         script {
-        //             build job: '10-sg', 
-        //               propagate: false,  // even SG fails VPC will not be effected
-        //               wait: false // VPC will not wait for SG pipeline completion
-        //         }
-        //     }
-        // }
+        stage('Trigger SG') {
+            steps {
+                script {
+                    build job: '10-sg', 
+                      propagate: false,  // even SG fails VPC will not be effected
+                      wait: false // VPC will not wait for SG pipeline completion
+                }
+            }
+        }
         
     }
 
