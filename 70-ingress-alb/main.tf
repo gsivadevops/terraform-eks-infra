@@ -47,7 +47,7 @@ resource "aws_route53_record" "ingress_alb" {
 
 
 resource "aws_lb_target_group" "frontend" {
-  name     = "${var.project}-${var.environment}-frontend" #roboshop-dev-catalogue
+  name     = "${var.project}-${var.environment}-ingress-frontend" #roboshop-dev-frontend
   port     = 8080
   protocol = "HTTP"
   vpc_id   = local.vpc_id
